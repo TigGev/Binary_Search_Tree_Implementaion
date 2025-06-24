@@ -8,14 +8,14 @@ class Node {
         Node* left;
         Node* right;
 
-        Node(T& val) : data(val) {};
+        Node(T& val) : data(val) left(nullptr), right(nullptr) {};
         // Node(T& val, Node* l = nullptr, Node* r = nullptr) : data(val), left(l), right(r) {}
 };
 
 template <class T>
 class binarySearchTree {
     public:
-        binarySearchTree() : root(nullptr);
+        binarySearchTree() : root(nullptr) {};
         binarySearchTree(const binarySearchTree& ohter);
         binarySearchTree(binarySearchTree&& other) noexcept;
         binarySearchTree& operator=(const binarySearchTree& other);
@@ -30,6 +30,14 @@ class binarySearchTree {
         void traverse() const;
     private:
         Node* root;
+
+        void copyHelper(Node* thisNode, Node* otherNode) {
+            if (otherNode == nullptr) return;
+            thisNode = new Node(otherNode->data);
+            copyHelper(thisNode->left, otherNode->left);
+            copyHelper(thisNode->right, otherNode->right);
+        };
+
 };
 
 #endif
