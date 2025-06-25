@@ -15,9 +15,41 @@ binarySearchTree<T>& binarySearchTree<T>::operator=(binarySearchTree<T>&& other)
 
 template <class T>
 bool binarySearchTree<T>::search(T val) const {
-    
+    return searchHelper(this->root, val);
 }
 
 template <class T>
+Node<T>* binarySearchTree<T>::getMin() {
+    return getMinHelper(this->root);
+}
+
 template <class T>
+Node<T>* binarySearchTree<T>::getMax() {
+    return getMaxHelper(this->root);
+}
+
 template <class T>
+Node<T>* binarySearchTree<T>::getPredecessor(Node<T>* node) const {
+    return getMaxHelper(root->left);
+}
+
+template <class T>
+Node<T>* binarySearchTree<T>::getSuccessor(Node<T>* node) const {
+    return getMinHelper(root->right);
+}
+
+template <class T>
+int binarySearchTree<T>::getHeight() const {
+    return getHightHelper(this->root);
+}
+
+template <class T>
+void binarySearchTree<T>::insert(T val) {
+    root = insertHelper(this->root, val);
+}
+
+template <class T>
+void binarySearchTree<T>::delete_(T val) {
+    if (!root) return nullptr;
+    
+}
