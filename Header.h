@@ -9,11 +9,11 @@ class Node {
         Node* right;
 
         Node(T& val) : data(val) left(nullptr), right(nullptr) {};
-        // Node(T& val, Node* l = nullptr, Node* r = nullptr) : data(val), left(l), right(r) {}
 };
 
 template <class T>
 class binarySearchTree {
+    
     public:
         binarySearchTree() : root(nullptr) {};
         binarySearchTree(const binarySearchTree& ohter);
@@ -30,8 +30,12 @@ class binarySearchTree {
         Node<T>* getPredecessor(Node<T>* node) const;
         Node<T>* getSuccessor(Node<T>* node) const;
         int getHeight() const;
-        void traverse() const;
+        void inorderedTraverse(Node<T>* root = this->root) const;
+        void preorderTraverse(Node<T>* root = this->root) const;
+        void postorderTraverse(Node<T>* root = this->root) const;
+
     private:
+
         Node<T>* root;
 
         void copyHelper(Node* thisNode, Node* otherNode) {

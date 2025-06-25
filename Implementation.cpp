@@ -1,4 +1,5 @@
 #include <Header.h>
+#include <iostream>
 
 
 template <class T>
@@ -50,6 +51,30 @@ void binarySearchTree<T>::insert(T val) {
 
 template <class T>
 void binarySearchTree<T>::delete_(T val) {
-    if (!root) return nullptr;
-    
+    delete_Helper(root, val);
 }
+
+template <class T>
+void binarySearchTree<T>::inorderedTraverse(Node<T>* root_ptr = this->root) const {
+    if (!root_ptr) return;
+    inorderedTraverse(root_ptr->left);
+    std::cout << root_ptr->val << "  ";
+    inorderedTraverse(root_ptr->right);
+}
+
+template <class T>
+void binarySearchTree<T>::preorderTraverse(Node<T>* root_ptr = this->root) const {
+    if (!root_ptr) return;
+    std::cout << root_ptr->val << "  ";
+    preorderTraverse(root_ptr->left);
+    preorderTraverse(root_ptr->right);
+}
+
+template <class T>
+void binarySearchTree<T>::postorderTraverse(Node<T>* root_ptr = this->root) const {
+    if (!root_ptr) return;
+    postorderTraverse(root_ptr->left);
+    postorderTraverse(root_ptr->right);
+    std::cout << root_ptr->val << "  ";
+}
+
