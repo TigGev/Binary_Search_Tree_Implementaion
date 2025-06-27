@@ -63,7 +63,7 @@ class binarySearchTree {
             return getMinHelper(root->right);
         }
 
-        int getHightHelper(Node<T>* root) {
+        int getHeightHelper(Node<T>* root) {
            if (!root) return 0;
            return std::max(1 + getHeightHelper(root->left), 1 + getHeightHelper(root->right));
         }

@@ -41,7 +41,7 @@ Node<T>* binarySearchTree<T>::getSuccessor(Node<T>* node) const {
 
 template <class T>
 int binarySearchTree<T>::getHeight() const {
-    return getHightHelper(this->root);
+    return getHeightHelper(this->root);
 }
 
 template <class T>
