@@ -64,8 +64,8 @@ class binarySearchTree {
         }
 
         int getHeightHelper(Node<T>* root) {
-           if (!root) return 0;
-           return std::max(1 + getHeightHelper(root->left), 1 + getHeightHelper(root->right));
+           if (!root) return -1;
+           return std::max( getHeightHelper(root->left), getHeightHelper(root->right)) + 1;
         }
 
         Node<T>* insertHelper(Node<T>* root, T val) {
