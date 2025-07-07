@@ -38,6 +38,24 @@ class binarySearchTree {
 
         Node<T>* root;
 
+        int getBalanceFactor(Node* root) const {
+            return getHeight(root->left) - getHeight(root->right);
+        }
+
+        Node* rightRotate(Node* node) {
+            Node* y = root->left;
+            root->left = y->right;
+            y->right = root;
+            return y;
+        }
+
+        Node* leftRotate(Node* root) {
+            Node* y = root->right;
+            root->right = y->left;
+            y->left = root;
+            return y;
+        }
+
         void copyHelper(Node* thisNode, Node* otherNode) {
             if (otherNode == nullptr) return;
             thisNode = new Node(otherNode->data);
@@ -71,7 +89,23 @@ class binarySearchTree {
         Node<T>* insertHelper(Node<T>* root, T val) {
             if (!root) return new Node(val);
             if (val < root->val) root->left = insertHelper(root->left, val);
-            else if (val > root->val) root->right = insertHelper(root->right, val);
+            else root->right = insertHelper(root->right, val);
+
+            int bf = getBalanceFactor(root);
+            if (bf > 1 && root->left->data > val) {
+                return rightRotate(root); //LL
+            }
+            if (bf > 1 && root->left->data < val) {
+                root->left = leftRotate(root->left);
+                return rightRotate(root); //LR
+            }
+            if (bf < -1 && root->right->data > val) {
+                return leftRotate(root);
+            }
+            if (bf < -1 && root->right->data > val) {
+                root->right = rightRotate(root->right);
+                return leftRotate(root);
+            }
             return root;
         }
 
@@ -93,6 +127,21 @@ class binarySearchTree {
                     Node* tmp = getMin();
                     root->val = tmp->val;
                     delete_Helper(root->right, tmp->key);
+            }
+            int bf = getBalanceFactor(root);
+            if (bf > 1 && getBalanceFactor(root->left) >= 0) {
+                return rightRotate(root);
+            }
+            if (bf > 1 && getBalanceFactor(root->left) < 0) {
+                root->left = leftRotate(root->left);
+                return rightRotate(root);
+            }
+            if (bf < -1 && getBalanceFactor(root->right) <= 0) {
+                return leftRotate(root);
+            }
+            if (bf < -1 && getBalanceFactor(root->right) > 0) {
+                root->right = rightRotate(root->right);
+                return leftRotate(root);
             }
             return root;
         }
